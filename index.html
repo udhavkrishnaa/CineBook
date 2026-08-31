@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CineBook – Online Movie Ticket Booking System</title>
+<meta name="description" content="CineBook lets you browse movies, pick a show time, choose seats and get a digital ticket instantly.">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" type="image/png" href="images/logo.png">
+</head>
+<body>
+<header>
+  <div class="logo">🎬 <b>Cine<span>Book</span></b></div>
+  <nav>
+    <a href="#home">Home</a><a href="#movies">Movies</a><a href="#booking">Booking</a>
+    <a href="#history">My Bookings</a><a id="adminLink" href="#admin" class="hidden">Admin</a>
+  </nav>
+  <div class="auth">
+    <select id="citySelect" class="city" onchange="pickCity(this.value)" aria-label="Select your city"></select>
+    <button id="loginBtn" class="outline" onclick="showLogin()">Login</button>
+    <button id="signupBtn" onclick="showSignup()">Sign Up</button>
+  </div>
+</header>
+
+<section id="home" class="hero">
+  <div>
+    <p class="tag">FAST • EASY • SECURE</p>
+    <h1>Welcome to <span>CineBook</span>.<br>Book Your Movie.</h1>
+    <p>Browse movies, choose a show, select your seats and confirm your tickets easily.</p>
+    <a class="btn" href="#movies">Browse Movies</a>
+  </div>
+</section>
+
+<section id="movies" class="section">
+  <div class="section-head">
+    <div><p class="tag">NOW SHOWING</p><h2>Choose a Movie</h2><p class="hint" id="cityNote"></p></div>
+    <div class="filters">
+      <input id="search" placeholder="🔍 Search by title or genre..." oninput="renderMovies()">
+      <div class="chips">
+        <button class="chip active" data-rating="0" onclick="pickRating(0)">All ratings</button>
+        <button class="chip" data-rating="7" onclick="pickRating(7)">⭐ 7+</button>
+        <button class="chip" data-rating="8" onclick="pickRating(8)">⭐ 8+</button>
+      </div>
+    </div>
+  </div>
+  <div id="movieGrid" class="grid"></div>
+</section>
+
+<section id="booking" class="section">
+  <p class="tag">TICKET RESERVATION</p><h2>Book Your Ticket</h2>
+  <div class="booking">
+    <div class="card">
+      <label>Movie</label><select id="movieSelect" onchange="onShowChange()"></select>
+      <label>Theatre</label><select id="theatreSelect" onchange="onShowChange()"></select>
+      <label>Show Time</label><div id="times" class="times"></div>
+      <label>Tickets</label>
+      <div class="counter"><button onclick="changeTickets(-1)">−</button><b id="count">1</b><button onclick="changeTickets(1)">+</button></div>
+      <p class="hint">Seats already booked for the selected movie, theatre and show time are locked and cannot be selected.</p>
+    </div>
+    <div class="card">
+      <div class="screen">SCREEN</div>
+      <div id="seats" class="seats"></div>
+      <div class="legend">Available　 <i></i> Selected　 <i class="occupied"></i> Booked</div>
+    </div>
+  </div>
+  <div class="summary card">
+    <div><small>BOOKING SUMMARY</small><h3 id="summaryMovie">Select a movie</h3><p id="summaryDetails">Select seats to continue.</p></div>
+    <div class="total"><small>TOTAL</small><strong id="total">₹0</strong><button class="btn" onclick="confirmBooking()">Confirm Booking</button></div>
+  </div>
+</section>
+
+<section id="history" class="section">
+  <p class="tag">BOOKING HISTORY</p><h2>My Bookings</h2>
+  <div id="historyList"></div>
+</section>
+
+<section id="admin" class="section hidden" style="display:none">
+  <p class="tag">ADMIN PANEL</p><h2>Manage CineBook</h2>
+  <div class="admin-grid">
+    <div class="card">
+      <h3>Add Movie</h3>
+      <input id="movieName" placeholder="Movie name">
+      <input id="movieGenre" placeholder="Genre">
+      <input id="movieDuration" placeholder="Duration">
+      <input id="movieRating" type="number" min="0" max="10" step="0.1" placeholder="Rating out of 10 (e.g. 8.4)">
+      <button class="btn full" onclick="addMovie()">+ Add Movie</button>
+      <div id="adminMovies"></div>
+    </div>
+    <div class="card">
+      <h3>Add Theatre</h3>
+      <input id="theatreName" placeholder="Theatre name">
+      <input id="theatreScreen" placeholder="Screen">
+      <input id="theatreLocation" placeholder="Location (city / area)">
+      <button class="btn full" onclick="addTheatre()">+ Add Theatre</button>
+      <div id="adminTheatres"></div>
+    </div>
+  </div>
+</section>
+
+<footer>🎬 CineBook – Online Movie Ticket Booking System • OOP Mini Project</footer>
+
+<div id="loginModal" class="modal">
+  <div class="modalbox">
+    <button class="close" onclick="closeModal('loginModal')">×</button>
+    <h2>Login</h2><p>Login using your Gmail account.</p>
+    <input id="loginEmail" type="email" placeholder="Gmail address">
+    <input id="loginPassword" type="password" placeholder="Password">
+    <button class="btn full" onclick="login()">Login</button>
+    <button class="google full" onclick="googleLogin()">🌐 Continue with Google</button>
+    <small>New user? <a onclick="switchSignup()">Create account</a></small>
+  </div>
+</div>
+
+<div id="signupModal" class="modal">
+  <div class="modalbox">
+    <button class="close" onclick="closeModal('signupModal')">×</button>
+    <h2>Create Account</h2><p>Use your Gmail address to register.</p>
+    <input id="name" placeholder="Full name">
+    <input id="email" type="email" placeholder="Gmail address">
+    <input id="password" type="password" placeholder="Password">
+    <input id="confirm" type="password" placeholder="Confirm password">
+    <button class="btn full" onclick="signup()">Create Account</button>
+    <button class="google full" onclick="googleLogin()">🌐 Continue with Google</button>
+  </div>
+</div>
+
+<div id="ticketModal" class="modal">
+  <div class="modalbox ticketbox">
+    <button class="close" onclick="closeModal('ticketModal')">×</button>
+    <p class="tag">BOOKING CONFIRMED</p>
+    <h2>Your Digital Ticket</h2>
+    <div id="ticketBody"></div>
+    <div class="ticket-actions">
+      <button class="btn" onclick="printTicket()">🖨 Print / Save</button>
+      <button class="outline" onclick="closeModal('ticketModal')">Done</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
