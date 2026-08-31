@@ -1,0 +1,47 @@
+/* public/cinebook/style.css */
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+html{scroll-behavior:smooth}body{background:#0b0d13;color:#f5f5f5;line-height:1.5}
+header{height:70px;position:sticky;top:0;z-index:10;background:#0d0f16ee;border-bottom:1px solid #272b38;display:flex;align-items:center;justify-content:space-between;padding:0 7%}
+.logo{font-size:23px}.logo span,.tag,h1 span{color:#ff4d6d}nav{display:flex;gap:22px}nav a{color:#bbb;text-decoration:none;font-size:14px}nav a:hover{color:#ff4d6d}
+.auth{display:flex;gap:7px}.outline{background:transparent!important;border:1px solid #ff4d6d!important;color:#ff4d6d!important}
+button,.btn{background:#ff4d6d;color:white;border:0;border-radius:8px;padding:10px 17px;font-weight:bold;cursor:pointer;text-decoration:none;display:inline-block}
+.hero{min-height:520px;padding:100px 8%;display:flex;align-items:center;background:radial-gradient(circle at 80% 35%,#50182a,transparent 35%),linear-gradient(120deg,#0b0d13,#1b1219)}
+.hero div{max-width:650px}.tag{font-size:12px;font-weight:bold;letter-spacing:2px}h1{font-size:clamp(42px,7vw,70px);line-height:1.05;margin:14px 0 20px}.hero p:not(.tag){color:#b7bbc5;margin-bottom:28px}
+.section{max-width:1250px;margin:auto;padding:70px 7%}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:25px}h2{font-size:34px;margin:5px 0 20px}input,select{width:100%;background:#151923;border:1px solid #303544;color:#fff;border-radius:8px;padding:12px;margin:6px 0;outline:none}.section-head input{width:260px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}.movie{background:#151923;border:1px solid #282d3b;border-radius:13px;overflow:hidden}.poster{height:260px;padding:18px;display:flex;align-items:end;background:linear-gradient(135deg,#192848,#96334e)}.poster h3{font-size:23px;text-shadow:0 2px 8px #000}.movie-info{padding:15px}.movie-info p{color:#999fad;font-size:13px;margin:4px 0 13px}
+.booking{display:grid;grid-template-columns:1fr 1.2fr;gap:20px}.card{background:#151923;border:1px solid #282d3b;border-radius:13px;padding:24px}label{display:block;color:#aaa;font-size:13px;margin-top:12px}.times{display:flex;flex-wrap:wrap;gap:7px}.time{background:#10131a;border:1px solid #303544;padding:9px 12px;border-radius:7px;color:#ddd}.time.active{background:#ff4d6d;border-color:#ff4d6d}.counter{display:flex;align-items:center;gap:18px;margin-top:7px}.counter button{width:36px;height:36px;padding:0;font-size:20px}.screen{text-align:center;background:#ddd;color:#111;padding:7px;margin:0 auto 24px;max-width:75%;border-radius:50% 50% 0 0;font-size:10px;letter-spacing:3px}.seats{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;max-width:500px;margin:auto}.seat{aspect-ratio:1.1;background:#293044;border-radius:5px;cursor:pointer}.seat.selected{background:#ff4d6d}.seat.occupied{background:#5b606c;cursor:not-allowed}.legend{text-align:center;color:#aaa;font-size:12px;margin-top:20px}.legend i{display:inline-block;width:13px;height:13px;background:#ff4d6d;border-radius:3px;vertical-align:middle}.legend i.occupied{background:#5b606c}
+.summary{margin-top:20px;display:flex;justify-content:space-between;align-items:center}.summary small{color:#999}.summary p{color:#aaa}.total{text-align:right}.total strong{display:block;font-size:27px;margin:3px 0 8px}
+#historyList{display:grid;gap:10px}.booking-item{padding:16px;background:#151923;border:1px solid #282d3b;border-radius:10px;display:flex;justify-content:space-between}.booking-item p{color:#999;font-size:13px}.admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}.admin-item{display:flex;justify-content:space-between;align-items:center;background:#10131a;border:1px solid #292e3a;padding:11px;margin-top:8px;border-radius:8px}.remove{background:transparent;border:1px solid #863149;color:#ff7089;padding:7px}.full{width:100%;margin-top:8px}footer{text-align:center;padding:45px;color:#888;border-top:1px solid #272b38}
+.modal{display:none;position:fixed;z-index:30;inset:0;background:#000b;align-items:center;justify-content:center;padding:20px}.modalbox{position:relative;background:#171a23;border:1px solid #303545;border-radius:14px;padding:30px;width:min(420px,100%)}.modalbox p{color:#999;margin-bottom:10px}.modalbox small{display:block;text-align:center;margin-top:14px;color:#999}.modalbox a{color:#ff4d6d;cursor:pointer}.close{position:absolute;right:14px;top:8px;background:transparent;font-size:28px;padding:0}.google{background:white;color:#222;margin-top:8px;width:100%}.hidden{display:none!important}
+@media(max-width:800px){header{padding:0 4%}nav{display:none}.hero{padding:70px 5%}.section{padding:55px 5%}.section-head{flex-direction:column;align-items:stretch}.section-head input{width:100%}.booking,.admin-grid{grid-template-columns:1fr}.summary{flex-direction:column;align-items:stretch}.total{text-align:left}}
+
+/* ---- added: hints, locked seats, digital ticket ---- */
+.hint{color:#8a90a0;font-size:12px;margin-top:14px;line-height:1.5}
+.seat.occupied{cursor:not-allowed!important;opacity:.85}
+.muted{color:#8a90a0}
+.booking-item{align-items:center}
+.booking-right{text-align:right}
+.booking-right p{color:#8a90a0;font-size:12px;margin:2px 0 8px}
+button.small{padding:6px 12px;font-size:12px}
+
+.ticketbox{max-width:520px;width:92%}
+.ticket{background:linear-gradient(140deg,#1c2233,#231824);border:1px solid #3a3040;border-radius:14px;padding:20px;margin-top:14px}
+.ticket small{display:block;color:#8a90a0;font-size:10px;letter-spacing:1.5px}
+.ticket-top{display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.ticket-top h3{font-size:22px;margin:4px 0}
+.ticket-top p{font-size:13px;color:#c3c8d4;margin:2px 0}
+.ticket-id{text-align:right}
+.ticket-id b{color:#ff4d6d;font-size:16px;letter-spacing:1px}
+.ticket-tear{border-top:2px dashed #4a4150;margin:16px -20px;position:relative}
+.ticket-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.ticket-grid b{font-size:15px}
+.ticket-grid .amount{color:#ff4d6d;font-size:18px}
+.ticket-note{color:#8a90a0;font-size:12px;margin-top:16px}
+.ticket-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+@media print{
+  body *{visibility:hidden}
+  #ticketModal,#ticketModal *{visibility:visible}
+  #ticketModal{position:absolute;inset:0;display:block!important;background:#fff}
+  .ticket-actions,.close{display:none!important}
+}
+@media(max-width:700px){.ticket-grid{grid-template-columns:1fr}}
